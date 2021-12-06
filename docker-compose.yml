@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./nestjs
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    volumes: 
+      - ./backend:/usr/src/app
+    networks:
+      - net
+    depends_on: 
+      - mongodb
+  mongodb:
+    image:
+      mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb/data:/var/lib/mongodb/data
+    networks:
+      - net
+
+networks: 
+  net:
